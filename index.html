@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JCC Jagannath University Result Portal</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div class="topbar">
+    <h2>🎓 JCC Result Portal</h2>
+
+    <div class="topbar-actions">
+        <button onclick="showStudent()">Student View</button>
+        <button onclick="showAdmin()">Admin Panel</button>
+    </div>
+</div>
+
+<main class="container">
+
+<!-- ================= STUDENT SECTION ================= -->
+<section id="studentSection" class="card">
+
+    <div class="header">
+        <div class="logo">
+            <img src="logo.png" alt="University Logo">
+        </div>
+
+        <h1>JCC Jagannath University</h1>
+
+        <p class="subtitle">
+            Digital Marketing Semester-I Examination Result
+        </p>
+    </div>
+
+    <p class="search-text">Enter your Enrollment Number</p>
+
+    <input type="text" id="enrollment" placeholder="Enrollment Number">
+    <button id="getResultBtn">Get Result</button>
+
+    <div id="loader" class="loader" style="display:none;">
+        <div class="spinner"></div>
+        <p>Fetching Result...</p>
+    </div>
+
+    <div id="resultCard" class="result-card">
+
+        <h2 class="result-title">Examination Result</h2>
+
+        <div class="student-info">
+            <div><strong>Name</strong><span id="name"></span></div>
+            <div><strong>Enrollment No</strong><span id="roll"></span></div>
+            <div><strong>Course</strong><span id="course"></span></div>
+            <div><strong>Semester</strong><span id="semester"></span></div>
+            <div><strong>Session</strong><span id="session"></span></div>
+        </div>
+
+        <hr>
+
+        <table class="marks-table">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Maximum</th>
+                    <th>Obtained</th>
+                </tr>
+            </thead>
+            <tbody id="marksBody"></tbody>
+        </table>
+
+        <div class="summary">
+            <h3>Total Marks : <span id="totalMarks"></span></h3>
+            <h3>Percentage : <span id="percentage"></span></h3>
+            <h2 id="resultStatus"></h2>
+        </div>
+
+    </div>
+
+    <button id="pdfBtn" style="display:none;">
+        📄 Download Official Certificate PDF
+    </button>
+
+    <div id="certificate" class="certificate">
+
+        <div class="cert-wrapper">
+
+            <div class="cert-header">
+                <img src="logo.png" style="width:90px;">
+                <h1>JCC Jagannath University</h1>
+                <p>OFFICIAL RESULT CERTIFICATE</p>
+            </div>
+
+            <hr>
+
+            <div class="cert-info">
+                <p><strong>Name:</strong> <span id="c_name"></span></p>
+                <p><strong>Enrollment:</strong> <span id="c_roll"></span></p>
+                <p><strong>Course:</strong> <span id="c_course"></span></p>
+                <p><strong>Session:</strong> <span id="c_session"></span></p>
+            </div>
+
+            <hr>
+
+            <table class="cert-table" width="100%">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Marks</th>
+                    </tr>
+                </thead>
+                <tbody id="c_marks"></tbody>
+            </table>
+
+            <h2 id="c_status"></h2>
+
+            <div class="cert-footer">
+                <p>✔ Official digitally generated certificate</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= ADMIN SECTION (STEP 5 UPGRADE) ================= -->
+<section id="adminSection" class="admin-panel" style="display:none;">
+
+    <div class="admin-header">
+        <h1>🛠 Admin Dashboard</h1>
+        <p>Manage student results</p>
+    </div>
+
+    <!-- DASHBOARD CARDS (NEW STEP 5 FEATURE) -->
+    <div class="admin-stats">
+
+        <div class="stat-card">
+            <h3>Total Students</h3>
+            <p id="totalStudents">--</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Last Updated</h3>
+            <p>Live Sheet</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Status</h3>
+            <p>Active</p>
+        </div>
+
+    </div>
+
+    <!-- ADD / UPDATE -->
+    <div class="admin-card">
+
+        <h3>➕ Add / Update Result</h3>
+
+        <div class="form-grid">
+
+            <input type="text" id="a_enrollment" placeholder="Enrollment No">
+            <input type="text" id="a_name" placeholder="Student Name">
+            <input type="text" id="a_course" placeholder="Course">
+            <input type="text" id="a_session" placeholder="Session">
+
+        </div>
+
+        <button id="saveBtn">Save Result</button>
+
+    </div>
+
+    <!-- SEARCH -->
+    <div class="admin-card">
+
+        <h3>🔍 Search Student</h3>
+        <input type="text" id="searchBox" placeholder="Search by Enrollment or Name">
+
+    </div>
+
+    <!-- TABLE WRAPPER (STEP 5 ENHANCEMENT) -->
+    <div class="admin-card">
+
+        <h3>📊 All Student Records</h3>
+
+        <div class="table-wrapper">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Enrollment</th>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Session</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="adminTableBody"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+<script src="script.js"></script>
+
+<script>
+function showAdmin(){
+    document.getElementById("studentSection").style.display = "none";
+    document.getElementById("adminSection").style.display = "block";
+}
+
+function showStudent(){
+    document.getElementById("studentSection").style.display = "block";
+    document.getElementById("adminSection").style.display = "none";
+}
+</script>
+
+</body>
+</html>
